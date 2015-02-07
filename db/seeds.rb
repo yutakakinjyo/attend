@@ -26,7 +26,15 @@ teacher_role = Role.create(name: 'teacher')
 
 end
 
-students = User.where(role_id: student_role).shuffle
-('1'..'5').each do 
-  # Course.create(user_id: students.sample, name:)
+('1'..'5').each do |index|
+  Course.create(name: "Course#{index}")
+end
+
+courses = Course.all.shuffle
+
+courses.each do |course|
+  students = User.where(role_id: student_role).shuffle
+  (5..10).to_a.sample.times do
+    CourseDetail.create(course_id: course.id, user_id: students.shift.id)
+  end
 end
