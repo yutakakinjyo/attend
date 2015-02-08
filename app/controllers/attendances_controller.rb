@@ -1,9 +1,10 @@
 class AttendancesController < ApplicationController
-
+      
   def create
     attendance = Attendance.new(attendance_params)
+    attendance.date = Time.now
     attendance.save
-    redirect_to attendance.course
+    redirect_to home_index_url
   end
 
   private
