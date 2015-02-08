@@ -1,4 +1,4 @@
 # Attend
 
-Attend manage attendance class.
+Attend manage attendance for classes.
 
