@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  get 'courses/index'
 
-  get 'courses/show'
+  resources :courses, only: [:index, :show]
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
