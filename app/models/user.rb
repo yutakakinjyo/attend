@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   has_many :attendances
   belongs_to :role
 
-
   def join?(course_id)
     self.courses.each do |course|
       return true if course.id == course_id
@@ -17,4 +16,21 @@ class User < ActiveRecord::Base
     false
   end
 
+  def attend?(my_course_id)
+    attendances = Attendance.where(course_id: my_course_id, user_id: self.id)
+    return false if attendances.nil?
+    attendances.each do |attendance|
+      return true if attendance.date.day == Time.now.day 
+    end
+    false
+  end
+
+  def get_attend(my_course_id)
+    attendances = Attendance.where(course_id: my_course_id, user_id: self.id)
+    return Attendance.new if attendances.nil?
+    attendances.each do |attendance|
+      return attendance if attendance.date.day == Time.now.day 
+    end
+    Attendance.new 
+  end
 end
