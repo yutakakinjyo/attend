@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'home/index'
+
   resources :courses, only: [:index, :show, :new, :create, :destroy]
   resources :course_details, only: [:new, :create, :destroy]
 
