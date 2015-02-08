@@ -2,5 +2,5 @@
 <p>Find me in app/views/courses/index.html.erb</p>
 
 <% @courses.each do |course| %>
-  <%= course.name %><br>
+  <%= course.name %> <%= link_to 'Show', course %><br>
 <% end %>
