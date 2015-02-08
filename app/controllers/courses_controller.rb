@@ -6,7 +6,12 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
-    @course_detail = CourseDetail.new
+    if current_user.join?(@course.id)
+      @course_detail = CourseDetail.find_by(course_id: @course.id, user_id: current_user.id)
+    else
+      @course_detail = CourseDetail.new 
+    end
+
   end
 
   def new

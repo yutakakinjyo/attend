@@ -9,4 +9,12 @@ class User < ActiveRecord::Base
   has_many :attendances
   belongs_to :role
 
+
+  def join?(course_id)
+    self.courses.each do |course|
+      return true if course.id == course_id
+    end
+    false
+  end
+
 end
