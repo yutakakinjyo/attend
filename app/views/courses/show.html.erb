@@ -2,10 +2,10 @@
 
 <% if user_signed_in? %>
   <%= form_for(@course_detail) do |f| %>
-    <%= f.hidden_field :user_id %>
-    <%= hidden_field_tag 'user_id', current_user.id %>
-    <%= f.hidden_field :course_id %>
-    <%= hidden_field_tag 'course_id', @course.id %>
+
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :course_id, :value => @course.id %>
+
     <%= f.submit %>
   <% end %>
 <% end %>
