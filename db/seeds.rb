@@ -38,3 +38,22 @@ courses.each do |course|
     CourseDetail.create(course_id: course.id, user_id: students.shift.id)
   end
 end
+
+courses.each do |course|
+
+
+
+  # create a class
+  (5..10).to_a.sample.times do
+
+    s1 = Date.parse("2015/01/15")
+    s2 = Date.parse("2015/02/27")
+    s = Random.rand(s1 .. s2)
+
+    # attendance students
+    students = course.users.shuffle
+    (1..students.count).to_a.sample.times do
+      Attendance.create(course_id: course.id, user_id: students.shift.id, date: s)
+    end
+  end
+end
