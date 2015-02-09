@@ -17,6 +17,6 @@
 
 <h2>Member</h2>
 <% @course.users.each do |user| %>
-  <li><%= user.name %> <% if user.attend?(@course.id) %> ✓ <% end %></li>
+  <li><%= user.name %></li>
 <% end %>
 
