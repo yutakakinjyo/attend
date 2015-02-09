@@ -14,9 +14,33 @@
   <% end %>
 <% end %>
 
-
-<h2>Member</h2>
+<h2>Members</h2>
 <% @course.users.each do |user| %>
-  <li><%= user.name %></li>
+  <li><%= user.name %> <% if current_user.attend?(@course.id) %> ✓ <% end %></li>
 <% end %>
 
+<h2><%= @current_month %> Attends</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <% @course.current_days.each do |day| %>
+        <th><%= day %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @course.users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+	<% @course.current_days.each do |day| %>
+	  <td>
+	  <% if current_user.attend_by_day?(@course.id, day) %>
+	    ✓ 
+	  <% end %>
+	  </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

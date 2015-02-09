@@ -25,6 +25,15 @@ class User < ActiveRecord::Base
     false
   end
 
+  def attend_by_day?(my_course_id, day)
+    attendance = Attendance.where(course_id: my_course_id, user_id: self.id)
+    return false if attendance.nil?
+    attendances.each do |attendance|
+      return true if attendance.date.day == day
+    end
+    false
+  end
+  
   def get_attend(my_course_id)
     attendances = Attendance.where(course_id: my_course_id, user_id: self.id)
     return Attendance.new if attendances.nil?

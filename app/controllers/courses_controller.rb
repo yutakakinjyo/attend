@@ -6,11 +6,14 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+
     if current_user.join?(@course.id)
       @course_detail = CourseDetail.find_by(course_id: @course.id, user_id: current_user.id)
     else
       @course_detail = CourseDetail.new 
     end
+
+    @current_month = Time.now.strftime("%Y-%m")
 
   end
 
