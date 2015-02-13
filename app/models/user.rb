@@ -17,29 +17,19 @@ class User < ActiveRecord::Base
   end
 
   def attend?(my_course_id)
-    attendances = Attendance.where(course_id: my_course_id, user_id: self.id)
-    return false if attendances.nil?
-    attendances.each do |attendance|
-      return true if attendance.date == Date.current
-    end
-    false
+    Attendance.find_by(course_id: my_course_id, user_id: self.id, date: Date.current).present?
   end
 
   def attend_by_date?(my_course_id, date)
-    attendance = Attendance.where(course_id: my_course_id, user_id: self.id)
-    return false if attendance.nil?
-    attendances.each do |attendance|
-      return true if attendance.date == date
-    end
-    false
+    Attendance.find_by(course_id: my_course_id, user_id: self.id, date: date).present?
   end
   
   def get_attend(my_course_id)
-    attendances = Attendance.where(course_id: my_course_id, user_id: self.id)
-    return Attendance.new if attendances.nil?
-    attendances.each do |attendance|
-      return attendance if attendance.date.day == Time.now.day 
+    attendance = Attendance.find_by(course_id: my_course_id, user_id: self.id, date: Date.current)
+    if attendance.present?
+      attendance
+    else
+      Attendance.new
     end
-    Attendance.new 
   end
 end
