@@ -10,36 +10,20 @@ class User < ActiveRecord::Base
   belongs_to :role
 
   def join?(course_id)
-    self.courses.each do |course|
-      return true if course.id == course_id
-    end
-    false
+    self.courses.find_by(id: course_id).present?
   end
 
-  def attend?(my_course_id)
-    attendances = Attendance.where(course_id: my_course_id, user_id: self.id)
-    return false if attendances.nil?
-    attendances.each do |attendance|
-      return true if attendance.date == Date.current
-    end
-    false
-  end
-
-  def attend_by_date?(my_course_id, date)
-    attendance = Attendance.where(course_id: my_course_id, user_id: self.id)
-    return false if attendance.nil?
-    attendances.each do |attendance|
-      return true if attendance.date == date
-    end
-    false
+  def attend?(my_course_id, date=Date.current)
+    Attendance.find_attend(my_course_id, self.id, date).present?
   end
   
-  def get_attend(my_course_id)
-    attendances = Attendance.where(course_id: my_course_id, user_id: self.id)
-    return Attendance.new if attendances.nil?
-    attendances.each do |attendance|
-      return attendance if attendance.date.day == Time.now.day 
+  def get_attend(my_course_id, date=Date.current)
+    attendance = Attendance.find_attend(my_course_id, self.id, date)
+    if attendance.present?
+      attendance
+    else
+      Attendance.new
     end
-    Attendance.new 
-  end
+  end  
+
 end
