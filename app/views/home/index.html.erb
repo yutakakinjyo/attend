@@ -2,7 +2,7 @@
 
 <% @courses.each do |course| %>
   <li>
-    <%= link_to course.name, course %>
+    <%= link_to course.name, course %> <% if current_user.attend?(course.id) %> ✓ <% end %>
   </li>
   <% if current_user.attend?(course.id) %>
     <%= form_for(current_user.get_attend(course.id), method: :delete) do |f| %>
