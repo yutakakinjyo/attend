@@ -10,10 +10,7 @@ class User < ActiveRecord::Base
   belongs_to :role
 
   def join?(course_id)
-    self.courses.each do |course|
-      return true if course.id == course_id
-    end
-    false
+    self.courses.find_by(id: course_id).present?
   end
 
   def attend?(my_course_id, date=Date.current)
