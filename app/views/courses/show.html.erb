@@ -35,7 +35,7 @@
         <td><%= user.name %></td>
 	<% @course.current_month_dates.each do |date| %>
 	  <td>
-	  <% if user.attend_by_date?(@course.id, date) %>
+	  <% if user.attend?(@course.id, date) %>
 	    ✓ 
 	  <% end %>
 	  </td>

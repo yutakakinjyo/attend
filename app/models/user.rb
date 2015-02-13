@@ -16,20 +16,17 @@ class User < ActiveRecord::Base
     false
   end
 
-  def attend?(my_course_id)
-    Attendance.find_by(course_id: my_course_id, user_id: self.id, date: Date.current).present?
-  end
-
-  def attend_by_date?(my_course_id, date)
-    Attendance.find_by(course_id: my_course_id, user_id: self.id, date: date).present?
+  def attend?(my_course_id, date=Date.current)
+    Attendance.find_attend(my_course_id, self.id, date).present?
   end
   
-  def get_attend(my_course_id)
-    attendance = Attendance.find_by(course_id: my_course_id, user_id: self.id, date: Date.current)
+  def get_attend(my_course_id, date=Date.current)
+    attendance = Attendance.find_attend(my_course_id, self.id, date)
     if attendance.present?
       attendance
     else
       Attendance.new
     end
-  end
+  end  
+
 end
