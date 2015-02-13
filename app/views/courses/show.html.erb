@@ -24,8 +24,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <% @course.current_days.each do |day| %>
-        <th><%= day %></th>
+      <% @course.current_month_dates.each do |date| %>
+        <th><%= date.day %></th>
       <% end %>
     </tr>
   </thead>
@@ -33,9 +33,9 @@
     <% @course.users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-	<% @course.current_days.each do |day| %>
+	<% @course.current_month_dates.each do |date| %>
 	  <td>
-	  <% if current_user.attend_by_day?(@course.id, day) %>
+	  <% if user.attend_by_date?(@course.id, date) %>
 	    ✓ 
 	  <% end %>
 	  </td>
