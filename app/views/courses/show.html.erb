@@ -26,12 +26,6 @@
   <% end %>
 <% end %>
 
-
-<h2>Members</h2>
-<% @course.users.each do |user| %>
-  <li><%= user.name %> <% if current_user.attend?(@course.id) %> ✓ <% end %></li>
-<% end %>
-
 <h2><%= @current_month %> Attends</h2>
 <table>
   <thead>
