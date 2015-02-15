@@ -4,13 +4,13 @@ class AttendancesController < ApplicationController
     attendance = Attendance.new(attendance_params)
     attendance.date = Time.now
     attendance.save
-    redirect_to root_url
+    redirect_to :back
   end
 
   def destroy
     attendance = Attendance.find(params[:id])
     attendance.destroy
-    redirect_to root_url
+    redirect_to :back
   end
 
   private
