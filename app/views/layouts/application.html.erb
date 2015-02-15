@@ -11,6 +11,11 @@
 <%= link_to 'home', root_path %>
 <%= link_to 'courses', courses_path %>
 <%= link_to 'profile', current_user %>
+<%= link_to 'sign out', destroy_user_session_path, :method => :delete %>
+
+
+
+<hr>
 
 <%= yield %>
 
