@@ -1,22 +1,29 @@
 <h1><%= @course.name %></h1>
 
-<% if user_signed_in? %>
-  <% if current_user.join?(@course.id) %>
-    <%= form_for(@course_detail, method: :delete) do |f| %>
-      <%= f.submit "Leave" %>
-    <% end %>
-  <% else %>
-    <%= form_for(@course_detail) do |f| %>
-      <%= f.hidden_field :user_id, :value => current_user.id %>
-      <%= f.hidden_field :course_id, :value => @course.id %>
-      <%= f.submit "Join" %>
-    <% end %>
+<% if current_user.join?(@course.id) %>
+  <%= form_for(@course_detail, method: :delete) do |f| %>
+    <%= f.submit "Leave" %>
+  <% end %>
+<% else %>
+  <%= form_for(@course_detail) do |f| %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :course_id, :value => @course.id %>
+    <%= f.submit "Join" %>
   <% end %>
 <% end %>
 
-<h2>Members</h2>
-<% @course.users.each do |user| %>
-  <li><%= user.name %> <% if current_user.attend?(@course.id) %> ✓ <% end %></li>
+<% if current_user.join?(@course.id) %>
+  <% if current_user.attend?(@course.id) %>
+    <%= form_for(current_user.get_attend(@course.id), method: :delete) do |f| %>
+       <%= f.submit "Cancel today" %>
+    <% end %>
+  <% else %>
+    <%= form_for(@attendance, method: :create) do |f| %>
+       <%= f.hidden_field :user_id, :value => current_user.id %>
+       <%= f.hidden_field :course_id, :value => @course.id %>
+       <%= f.submit "Attend today" %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <h2><%= @current_month %> Attends</h2>

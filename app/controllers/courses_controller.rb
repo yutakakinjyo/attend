@@ -6,6 +6,7 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    @attendance = Attendance.new
 
     if current_user.join?(@course.id)
       @course_detail = CourseDetail.find_by(course_id: @course.id, user_id: current_user.id)

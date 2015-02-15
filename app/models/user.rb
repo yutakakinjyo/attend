@@ -13,12 +13,12 @@ class User < ActiveRecord::Base
     self.courses.find_by(id: course_id).present?
   end
 
-  def attend?(my_course_id, date=Date.current)
-    Attendance.find_attend(my_course_id, self.id, date).present?
+  def attend?(course_id, date=Date.current)
+    attendances.find_by(course_id: course_id, user_id: self.id, date: date).present?
   end
   
-  def get_attend(my_course_id, date=Date.current)
-    attendance = Attendance.find_attend(my_course_id, self.id, date)
+  def get_attend(course_id, date=Date.current)
+    attendance = attendances.find_by(course_id: course_id, user_id: self.id, date: date)
     if attendance.present?
       attendance
     else
